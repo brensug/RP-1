@@ -133,7 +133,7 @@ namespace RP0.DataTypes
             int mod = len % 4;
             if (mod != 0)
             {
-                UnityEngine.Debug.LogError("[RP-0] error: base64 string length is not divisble by 4! Padding.");
+                RP0Debug.LogError("error: base64 string length is not divisble by 4! Padding.");
                 s += new string('=', 4 - mod); // yuck, concatenation sucks here.
             }
             _bytes = ObjectSerializer.Base64Decode(s);
@@ -215,13 +215,13 @@ namespace RP0.DataTypes
                     ConfigNode newNode = KSPUpgradePipeline.Pipeline.Run(_node, SaveUpgradePipeline.LoadContext.Craft, gameVersion, out bool runSuccess, out string runInfo);
                     if (!runSuccess)
                     {
-                        UnityEngine.Debug.LogError($"[RP-0] Error upgrading craft node with ship name {_node.GetValue("ship") ?? "<unknown"}. Information from the upgrade run: {runInfo}");
+                        RP0Debug.LogError($"Error upgrading craft node with ship name {_node.GetValue("ship") ?? "<unknown"}. Information from the upgrade run: {runInfo}");
                         return _node;
                     }
                     if (newNode != _node)
                     {
                         base.Node = newNode;
-                        UnityEngine.Debug.Log($"[RP-0] Upgraded craft node with ship name {_node.GetValue("ship") ?? "<unknown>"}.");
+                        RP0Debug.Log($"Upgraded craft node with ship name {_node.GetValue("ship") ?? "<unknown>"}.");
                     }
                 }
                 return _node;
